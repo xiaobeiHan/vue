@@ -37,3 +37,6 @@ app.get('/api/dropTable', (req, res) => {
 		})
 	})
 });
+app.listen(3000, () => {
+	console.log('正在监听端口3000,http://193.112.56.98:3000');
+})
