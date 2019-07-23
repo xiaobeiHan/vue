@@ -1,0 +1,5 @@
+[auth]
+token=5d59607976144f38ba1cf50db263ec536b3922c083b2489cb6d6ed170bf98dca
+[defaults]
+project=vue
+org=https://sentry.io/organizations/xiaobeihan

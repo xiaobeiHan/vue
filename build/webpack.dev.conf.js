@@ -12,6 +12,9 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+// 增加sentry的webpack插件
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+console.log(123, 234, 456, 'dev')
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -45,6 +48,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
+    new SentryWebpackPlugin({
+      include: '.',
+      ignoreFile: '.sentrycliignore',
+      ignore: ['node_modules', 'webpack.config.js'],
+      configFile: 'sentry.properties'
+    }),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),

@@ -1,94 +1,68 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <h2>Essential Links1662</h2>
+    <button @click="sendSentry">sendSentry</button>
+    <button @click="sendAnotherSentry">sendAnotherSentry</button>
+    <button @click="sendEvent">sendEvent</button>
+    <input @input="sendEvent"/>
   </div>
 </template>
 
 <script>
+// import isFunc from "xiaobeiutil"
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: ''
+    }
+  },
+  methods: {
+    sendSentry () {
+      this.Sentry.withScope(scope => {
+        scope.setFingerprint(['group9'])
+        this.Sentry.setTag('tagName', 'myNewTag')
+        this.Sentry.setExtras({
+          name: 'xiaobei',
+          date: '20190715'
+        })
+        this.Sentry.captureException(
+          new Error('firstException group9')
+        )
+      })
+    },
+    sendAnotherSentry () {
+      this.Sentry.withScope(scope => {
+        scope.setFingerprint(['group1'])
+        this.Sentry.setTag('tagName', 'myNewTag')
+        this.Sentry.setExtras({
+          name: 'xiaobei',
+          date: '20190715'
+        })
+        this.Sentry.captureException(
+          new Error('new Error1 group1')
+        )
+      })
+    },
+    sendEvent () {
+      this.Sentry.withScope(scope => {
+        this.Sentry.captureEvent(
+          {
+            fingerprint: ['group1'],
+            message: 'firstEventMsg group1',
+            level: 'info',
+            tags: {
+              myeame: 'xiaobeiEvent',
+              myType: 'event'
+            },
+            extra: {
+              dowhat: 'drinkWater',
+              eatwhat: 'dontknow'
+            }
+          }
+        )
+      })
     }
   }
 }
