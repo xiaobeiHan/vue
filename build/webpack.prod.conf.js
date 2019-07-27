@@ -40,7 +40,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       include: '.',
       ignoreFile: '.sentrycliignore',
       ignore: ['node_modules', 'webpack.config.js'],
-      release: 'foo'
+      release: 'foo3'
     }),
     new UglifyJsPlugin({
       uglifyOptions: {

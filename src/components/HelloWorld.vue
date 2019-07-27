@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <h2>Essential Links1662</h2>
     <button @click="sendSentry">sendSentry</button>
-    <button @click="sendAnotherSentry">sendAnotherSentry</button>
+    <button @click="sendSentry">sendAnotherSentry</button>
     <button @click="sendEvent">sendEvent</button>
     <input @input="sendEvent"/>
   </div>
@@ -28,20 +28,20 @@ export default {
           date: '20190715'
         })
         this.Sentry.captureException(
-          new Error('firstException group9')
+          new Error('method sendSentry')
         )
       })
     },
     sendAnotherSentry () {
       this.Sentry.withScope(scope => {
-        scope.setFingerprint(['group1'])
+        scope.setFingerprint(['group9'])
         this.Sentry.setTag('tagName', 'myNewTag')
         this.Sentry.setExtras({
           name: 'xiaobei',
           date: '20190715'
         })
         this.Sentry.captureException(
-          new Error('new Error1 group1')
+          new Error('method sendAnotherSentry')
         )
       })
     },
@@ -50,7 +50,7 @@ export default {
         this.Sentry.captureEvent(
           {
             fingerprint: ['group1'],
-            message: 'firstEventMsg group1',
+            message: 'sendEvent',
             level: 'info',
             tags: {
               myeame: 'xiaobeiEvent',
